@@ -1,1 +1,90 @@
 
+.button {
+    background-color: transparent;
+    border: none;
+}
+
+.dd-table-container {
+	font-family: 'Lato', serif;
+	max-width: 83.3333%;
+	margin-left: 8.333%;
+	margin-top: 100px;
+}
+
+.dd-table {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: left;
+	border-left: 1px solid rgba(0, 0, 0, 0.19);
+	border-right: 1px solid rgba(0, 0, 0, 0.19);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+	&__row {
+		th, td {
+			padding: 10px;
+			border-top: 1px solid rgba(0, 0, 0, 0.19);
+			border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+		}
+	}
+}
+
+.dd-modal {
+	position: fixed;
+	font-family: 'Lato', serif;
+
+    &__overlay {
+		position: inherit;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    &__body {
+		position: inherit;
+		width: 100%;
+		max-width: 83.33%;
+		background-color: white;
+		height: calc(100% - 200px);
+		overflow: scroll;
+		top: 100px;
+		left: 8.333%;
+    }
+	
+	&__header {
+		padding: 20px;
+		font-size: 32px;
+	}
+
+	&__content {
+		padding: 0 20px;
+
+	}
+	
+	&__selected-list__item {
+		margin: 20px 0;
+		padding-inline-start: 10px;
+	}
+	
+	&__selected-list__item__details {
+		margin: 20px 0;
+	}
+
+	&__close-btn {
+		position: inherit;
+		top: 115px;
+		right: calc(8.333% + 15px);
+		background-color: transparent;
+		border: none;
+		background-image: url('data:image/svg+xml;base64,PCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiPgo8dGl0bGU+aW5jb3JyZWN0PC90aXRsZT4KPHBhdGggZmlsbD0iIzQ0NCIgZD0iTTMxLjcyMyA1LjU2MmwtNS4yODUtNS4yODUtMTAuNDM4IDEwLjQzOC0xMC40MzgtMTAuNDM4LTUuMjg1IDUuMjg1IDEwLjQzOCAxMC40MzgtMTAuNDM4IDEwLjQzOCA1LjI4NSA1LjI4NSAxMC40MzgtMTAuNDM4IDEwLjQzOCAxMC40MzggNS4yODUtNS4yODUtMTAuNDM4LTEwLjQzOHoiPjwvcGF0aD4KPC9zdmc+Cg==');
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		background-size: 15px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
