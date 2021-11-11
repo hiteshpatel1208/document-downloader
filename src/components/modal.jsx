@@ -14,7 +14,8 @@ export default function Modal(props) {
                     <ol className='dd-modal__selected-list'>
                         {
                             data.map(el => {
-                                return (
+                                return  el.status === 'available' &&
+                                (
                                     <li className='dd-modal__selected-list__item' key={el.name}>
                                         <div className='dd-modal__selected-list__item__details'>
                                             <strong>Name:</strong> {el.name}

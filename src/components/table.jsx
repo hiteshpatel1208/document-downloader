@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from './modal';
 
 export default function Table(props) {
@@ -6,13 +6,24 @@ export default function Table(props) {
 
     const [selected, setSelected] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [selectAllState, setSelectAllState] = useState('none');
+
+    useEffect(() => {
+        if(selected.length > 0 && selected.length !== data.length) {
+            setSelectAllState('intermediate');
+        } else if (selected.length === data.length) {
+            setSelectAllState('all');
+        } else {
+            setSelectAllState('none');
+        }
+    }, [selected, data]);
 
     const handleSelection = (e, record) => {
         if (e.target.checked) {
             const selection = [...selected];
             selection.push(record);
             setSelected(selection);
-        } else {
+        } else{
             const indexToRemove = selected.indexOf(record);
             const selection = [...selected];
             selection.splice(indexToRemove, 1);
@@ -21,12 +32,15 @@ export default function Table(props) {
     }
 
     const handleDownloadSelectedClick = () => {
-        // alert(JSON.stringify(selected));
         setShowModal(true);
     }
 
     const handleModalClose = () => {
         setShowModal(false);
+    }
+
+    const handleSelectAllChange = () => {
+        
     }
 
     return (
@@ -36,14 +50,20 @@ export default function Table(props) {
                     <thead>
                         <tr className='dd-table__row'>
                             <th>
-                                <label>
-                                    <input type='checkbox' checked={selected.length === data.length} />
-                                    <span></span>
+                                <label className='dd-table__row__checkbox-container'>
+                                    <input className='dd-table__row__checkbox-input' onChange={handleSelectAllChange} type='checkbox'/>
+                                    <span className={`dd-table__row__checkbox-icon dd-table__row__checkbox-icon--${selectAllState}`}></span>
                                 </label>
                             </th>
                             <th>Selected {selected.length}</th>
                             <th colSpan='3'>
-                                <button type='button' className='button' onClick={handleDownloadSelectedClick} disabled={selected.length === 0}>
+                                <button type='button' className='dd-table__download-selected-btn' onClick={handleDownloadSelectedClick} disabled={!selected.some(s => s.status === 'available')}>
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 35 32">
+                                        <title>download</title>
+                                        <path fill="#000" d="M8.956 10.375h17.038l-8.519 11.249z"></path>
+                                        <path fill="#000" d="M34.403 29.488c0 1.201-0.983 2.075-2.075 2.075h-29.706c-1.201 0-2.075-0.983-2.075-2.075v0c0-1.201 0.983-2.075 2.075-2.075h29.706c1.201-0.109 2.075 0.874 2.075 2.075v0z"></path>
+                                        <path fill="#000" d="M20.314 11.795c0 0.764-0.655 1.42-1.42 1.42h-2.84c-0.764 0-1.42-0.655-1.42-1.42v-9.939c0-0.764 0.655-1.42 1.42-1.42h2.84c0.764 0 1.42 0.655 1.42 1.42v9.939z"></path>
+                                    </svg>
                                     Download Selected
                                 </button>
                             </th>
@@ -62,15 +82,24 @@ export default function Table(props) {
                                 return (
                                     <tr className='dd-table__row' key={el.name}>
                                         <td>
-                                            <label>
-                                                <input type='checkbox' onChange={(e) => handleSelection(e, el)} />
-                                                <span></span>
+                                            <label className='dd-table__row__checkbox-container'>
+                                                <input className='dd-table__row__checkbox-input' type='checkbox' onChange={(e) => handleSelection(e, el)} />
+                                                <span className='dd-table__row__checkbox-icon'></span>
                                             </label>
                                         </td>
                                         <td>{el.name}</td>
                                         <td>{el.device}</td>
                                         <td>{el.path}</td>
-                                        <td style={{textTransform: 'capitalize'}}>{el.status}</td>
+                                        <td className='dd-table__row__status' style={{ textTransform: 'capitalize' }}>
+                                            {
+                                                el.status === 'available' && (
+                                                    <svg fill='green' version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15" >
+                                                        <path d="M14,7.5c0,3.5899-2.9101,6.5-6.5,6.5S1,11.0899,1,7.5S3.9101,1,7.5,1S14,3.9101,14,7.5z" />
+                                                    </svg>
+                                                )
+                                            }
+                                            {el.status}
+                                        </td>
                                     </tr>
                                 )
                             })

@@ -1,11 +1,6 @@
 
-.button {
-    background-color: transparent;
-    border: none;
-}
 
 .dd-table-container {
-	font-family: 'Lato', serif;
 	max-width: 83.3333%;
 	margin-left: 8.333%;
 	margin-top: 100px;
@@ -18,12 +13,90 @@
 	border-left: 1px solid rgba(0, 0, 0, 0.19);
 	border-right: 1px solid rgba(0, 0, 0, 0.19);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+	
 	&__row {
 		th, td {
-			padding: 10px;
+			padding: 15px;
 			border-top: 1px solid rgba(0, 0, 0, 0.19);
 			border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+		}
+		
+		th {
+			font-size: 18px;
+		}
+		
+		td {
+			font-size: 16px;
+		}
+		
+		&__checkbox-container {
+			display: block;
+			position: relative;
+			cursor: pointer;
+			user-select: none;
+		}
+		
+		&__checkbox-input {
+			opacity: 0;
+			height: 0;
+			width: 0;
+			cursor: pointer;
+			
+			&:checked ~ .dd-table__row__checkbox-icon {
+				background-color: dodgerblue;
+				&::after {
+					display: block;
+				}
+			}
+		}
+		
+		&__checkbox-icon {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 20px;
+			width: 20px;
+			border-radius: 3px;
+			border: 1px solid rgba(0, 0, 0, 0.19);
+			
+			&::after {
+				content: '';
+				position: absolute;
+				display: none;
+				width: 6px;
+				height: 13px;
+				border: solid #fff;
+				border-width: 0 3px 3px 0;
+				transform: rotate(39deg);
+				left: 5px;
+			}
+		}
+
+		&__status {
+			svg {
+				margin-left: -25px;
+				margin-right: 12px;
+			}
+		}
+		
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.05);
+		}
+
+	}
+	&__download-selected-btn {
+		background-color: transparent;
+		border: none;
+		font-size: 18px;
+		width: 195px;
+		display: flex;
+		justify-content: space-between;
+		cursor: pointer;
+
+		&:disabled {
+			svg {
+				opacity: .5;
+			}
 		}
 	}
 }
@@ -47,7 +120,7 @@
 		max-width: 83.33%;
 		background-color: white;
 		height: calc(100% - 200px);
-		overflow: scroll;
+		overflow: hidden;
 		top: 100px;
 		left: 8.333%;
     }
