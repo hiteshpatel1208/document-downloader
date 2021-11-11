@@ -23,11 +23,13 @@ export default function Table(props) {
             const selection = [...selected];
             selection.push(record);
             setSelected(selection);
+            e.target.closest('tr').classList.add('dd-table__row--selected');
         } else{
             const indexToRemove = selected.indexOf(record);
             const selection = [...selected];
             selection.splice(indexToRemove, 1);
             setSelected(selection);
+            e.target.closest('tr').classList.remove('dd-table__row--selected');
         }
     }
 
@@ -40,7 +42,7 @@ export default function Table(props) {
     }
 
     const handleSelectAllChange = () => {
-        
+        // select All operation to go.
     }
 
     return (

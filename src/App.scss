@@ -78,6 +78,10 @@
 				margin-right: 12px;
 			}
 		}
+
+		&--selected {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
 		
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.05);
