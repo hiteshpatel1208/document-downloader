@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/document-downloader/static/css/main.a0c4f10e.chunk.css",
+    "main.js": "/document-downloader/static/js/main.a2c9221a.chunk.js",
+    "main.js.map": "/document-downloader/static/js/main.a2c9221a.chunk.js.map",
+    "runtime-main.js": "/document-downloader/static/js/runtime-main.4241adbc.js",
+    "runtime-main.js.map": "/document-downloader/static/js/runtime-main.4241adbc.js.map",
+    "static/js/2.3e1f9859.chunk.js": "/document-downloader/static/js/2.3e1f9859.chunk.js",
+    "static/js/2.3e1f9859.chunk.js.map": "/document-downloader/static/js/2.3e1f9859.chunk.js.map",
+    "static/js/3.aad9e7a8.chunk.js": "/document-downloader/static/js/3.aad9e7a8.chunk.js",
+    "static/js/3.aad9e7a8.chunk.js.map": "/document-downloader/static/js/3.aad9e7a8.chunk.js.map",
+    "index.html": "/document-downloader/index.html",
+    "static/css/main.a0c4f10e.chunk.css.map": "/document-downloader/static/css/main.a0c4f10e.chunk.css.map",
+    "static/js/2.3e1f9859.chunk.js.LICENSE.txt": "/document-downloader/static/js/2.3e1f9859.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4241adbc.js",
+    "static/js/2.3e1f9859.chunk.js",
+    "static/css/main.a0c4f10e.chunk.css",
+    "static/js/main.a2c9221a.chunk.js"
+  ]
+}
