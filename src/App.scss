@@ -28,48 +28,10 @@
 		td {
 			font-size: 16px;
 		}
-		
-		&__checkbox-container {
-			display: block;
-			position: relative;
-			cursor: pointer;
-			user-select: none;
-		}
-		
+
 		&__checkbox-input {
-			opacity: 0;
-			height: 0;
-			width: 0;
-			cursor: pointer;
-			
-			&:checked ~ .dd-table__row__checkbox-icon {
-				background-color: dodgerblue;
-				&::after {
-					display: block;
-				}
-			}
-		}
-		
-		&__checkbox-icon {
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 20px;
-			width: 20px;
-			border-radius: 3px;
-			border: 1px solid rgba(0, 0, 0, 0.19);
-			
-			&::after {
-				content: '';
-				position: absolute;
-				display: none;
-				width: 6px;
-				height: 13px;
-				border: solid #fff;
-				border-width: 0 3px 3px 0;
-				transform: rotate(39deg);
-				left: 5px;
-			}
+			width: 30px;
+			height: 30px;
 		}
 
 		&__status {
@@ -88,6 +50,7 @@
 		}
 
 	}
+
 	&__download-selected-btn {
 		background-color: transparent;
 		border: none;

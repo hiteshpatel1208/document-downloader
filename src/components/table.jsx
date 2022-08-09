@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Modal from './modal';
 
 export default function Table(props) {
@@ -6,15 +6,23 @@ export default function Table(props) {
 
     const [selected, setSelected] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [selectAllState, setSelectAllState] = useState('none');
 
-    useEffect(() => {
-        if(selected.length > 0 && selected.length !== data.length) {
-            setSelectAllState('intermediate');
-        } else if (selected.length === data.length) {
-            setSelectAllState('all');
-        } else {
-            setSelectAllState('none');
+    const masterInput = useCallback(input => {
+        if(input) {
+
+            const {length: dataLength} = data;
+            const {length: selectedLength} = selected;
+
+            if(selectedLength === dataLength) {
+                input.checked = true;
+                input.indeterminate = false;
+            } else if(selectedLength > 0 && selected.length < dataLength) {
+                input.checked = false;
+                input.indeterminate = true;
+            } else if(selectedLength === 0) {
+                input.checked = false;
+                input.indeterminate = false;
+            }
         }
     }, [selected, data]);
 
@@ -23,13 +31,11 @@ export default function Table(props) {
             const selection = [...selected];
             selection.push(record);
             setSelected(selection);
-            e.target.closest('tr').classList.add('dd-table__row--selected');
         } else{
             const indexToRemove = selected.indexOf(record);
             const selection = [...selected];
             selection.splice(indexToRemove, 1);
             setSelected(selection);
-            e.target.closest('tr').classList.remove('dd-table__row--selected');
         }
     }
 
@@ -42,22 +48,23 @@ export default function Table(props) {
     }
 
     const handleSelectAllChange = () => {
-        // select All operation to go.
+        if(selected.length === data.length){
+            setSelected([]);
+        } else {
+            setSelected(data);
+        }
     }
 
     return (
         <>
             <div className='dd-table-container'>
-                <table className='dd-table'>
+                <table className='dd-table' data-testid='table'>
                     <thead>
                         <tr className='dd-table__row'>
                             <th>
-                                <label className='dd-table__row__checkbox-container'>
-                                    <input className='dd-table__row__checkbox-input' onChange={handleSelectAllChange} type='checkbox'/>
-                                    <span className={`dd-table__row__checkbox-icon dd-table__row__checkbox-icon--${selectAllState}`}></span>
-                                </label>
+                                <input className='dd-table__row__checkbox-input' onChange={handleSelectAllChange} type='checkbox' ref={masterInput}/>
                             </th>
-                            <th>Selected {selected.length}</th>
+                            <th> {selected.length > 0 ? selected.length : 'None'} Selected</th>
                             <th colSpan='3'>
                                 <button type='button' className='dd-table__download-selected-btn' onClick={handleDownloadSelectedClick} disabled={!selected.some(s => s.status === 'available')}>
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 35 32">
@@ -72,22 +79,18 @@ export default function Table(props) {
                         </tr>
                         <tr className='dd-table__row'>
                             <th />
-                            <th>Name</th>
-                            <th>Device</th>
-                            <th>Path</th>
-                            <th>Status</th>
+                            {
+                                Object.keys(data[0]).map(key => <th key={key} style={{ textTransform: 'capitalize' }}>{key}</th>)
+                            }
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data.map(el => {
                                 return (
-                                    <tr className='dd-table__row' key={el.name}>
+                                    <tr className={selected.includes(el) ? ' dd-table__row dd-table__row--selected' : 'dd-table__row'} key={el.name}>
                                         <td>
-                                            <label className='dd-table__row__checkbox-container'>
-                                                <input className='dd-table__row__checkbox-input' type='checkbox' onChange={(e) => handleSelection(e, el)} />
-                                                <span className='dd-table__row__checkbox-icon'></span>
-                                            </label>
+                                            <input className='dd-table__row__checkbox-input' type='checkbox' onChange={(e) => handleSelection(e, el)} checked={selected.includes(el)} />
                                         </td>
                                         <td>{el.name}</td>
                                         <td>{el.device}</td>
